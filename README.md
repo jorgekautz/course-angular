@@ -1,1 +1,1 @@
-# InstaGif
+# InstanGif
