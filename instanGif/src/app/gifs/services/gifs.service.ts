@@ -7,34 +7,41 @@ import { SearchGifsResponse, Gif } from '../interface/gifs.interface';
 })
 export class GifsService {
   private apiKey     : string = 'lXeglDrGOquHO5b0HuWT2f3ZzJUTlRAN';
-  private servicioUrl: string = 'https://api.giphy.com/v1/gifs';
-  private _historial : string[] = [];
-  public resultados: Gif[] = [];
+  private serviceUrl: string = 'https://api.giphy.com/v1/gifs';
+  private _history : string[] = [];
+  public results: {title: string, url: string}[] = [];
 
-  get historial() {
-    return [...this._historial];
+  get history() {
+    return [...this._history];
   }
 
   constructor( private http: HttpClient ) {
-    this._historial = JSON.parse(localStorage.getItem('historial')!) || [];
-    this.resultados = JSON.parse(localStorage.getItem('resultados')!) || [];
+    this._history = JSON.parse(localStorage.getItem('history')!) || [];
+    this.results = JSON.parse(localStorage.getItem('results')!) || [];
   }
 
-  buscarGifs( query: string = '' ) {
+  searchGifs( query: string = '' ) {
     query = query.trim().toLocaleLowerCase();
-    if( !this._historial.includes( query ) ) {
-      this._historial.unshift( query );
-      this._historial = this._historial.splice(0,10);
-      localStorage.setItem('historial', JSON.stringify( this._historial )  );
+    if( !this._history.includes( query ) ) {
+      this._history.unshift( query );
+      this._history = this._history.splice(0,10);
+      localStorage.setItem('history', JSON.stringify( this._history )  );
     }
     const params = new HttpParams()
           .set('api_key', this.apiKey)
-          .set('limit', '10')
+          .set('limit', '12')
           .set('q', query );
-    this.http.get<SearchGifsResponse>(`${ this.servicioUrl }/search`, { params } )
+    this.http.get<SearchGifsResponse>(`${ this.serviceUrl }/search`, { params } )
       .subscribe( ( resp ) => {
-        this.resultados = resp.data;
-        localStorage.setItem('resultados', JSON.stringify( this.resultados )  );
+        this.results = [];
+        resp.data.forEach((aux: Gif) => {
+          this.results.push({
+            title: aux.title,
+            url: aux.images.downsized_medium.url
+          });
+        });
+        localStorage.setItem('results', JSON.stringify( this.results ) );
       });
   }
+  
 }

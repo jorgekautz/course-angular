@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { GifsService } from '../services/gifs.service';
 
 @Component({
-  selector: 'app-resultados',
-  templateUrl: './resultados.component.html',
+  selector: 'app-result',
+  templateUrl: './result.component.html',
   styles: [
   ]
 })
-export class ResultadosComponent {
+export class ResultComponent {
 
-  get resultados() {
-    return this.gifsService.resultados;
+  get results() {
+    return this.gifsService.results;
   }
 
   constructor( private gifsService: GifsService ) { }

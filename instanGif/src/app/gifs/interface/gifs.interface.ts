@@ -61,7 +61,7 @@ export interface Images {
     preview:                  DownsizedSmall;
     preview_gif:              The480_WStill;
     preview_webp:             The480_WStill;
-    "480w_still":             The480_WStill;
+    '480w_still':             The480_WStill;
 }
 
 export interface The480_WStill {
