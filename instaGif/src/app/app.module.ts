@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 
 import { SharedModule } from './shared/shared.module';
 import { GifsModule } from './gifs/gifs.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import { GifsModule } from './gifs/gifs.module';
     BrowserModule,
     HttpClientModule,
     SharedModule,
-    GifsModule
+    GifsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

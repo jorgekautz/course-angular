@@ -5,7 +5,7 @@ html, body {
 #sidebar {
     height: 100%;
     min-height: 100vh;
-    min-width: 180px;
+    min-width: 240px;
 }
 
 .card {
@@ -14,4 +14,11 @@ html, body {
 }
 .card img {
     border-radius: .35rem;
+}
+
+.history a {
+    text-decoration: none;
+}
+.history hr {
+    margin-top: 0.2rem;
 }
